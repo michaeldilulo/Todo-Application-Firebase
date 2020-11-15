@@ -24,7 +24,8 @@ function App() {
     // This is doing all the listening, whenever it changes, fire this line of code below
     // Sorts the todos in descending order
     db.collection('todos').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-      setTodos(snapshot.docs.map(doc => doc.data().name))
+      // Now todo is an object, has an ID and the name
+      setTodos(snapshot.docs.map(doc => ({ id: doc.id, todo: doc.data().name })))
     })
   }, [])
 
@@ -59,7 +60,7 @@ function App() {
 
       <ul>
         {todos.map(todo => (
-          <Todo name={todo} />
+          <Todo todo={todo} />
         ))}
       </ul>
     </div>
