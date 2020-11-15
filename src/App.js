@@ -13,16 +13,21 @@ function App() {
   const [input, setInput] = useState('')
 
   const addTodo = (event) => {
+    // preventDefault() will stop the page from being refreshed
+    event.preventDefault()
     // spread operator spreads out array of todos, input is the new todo
     setTodos([...todos, input])
+    setInput('')
   }
 
 
   return (
     <div className="App">
       <h1>Todo Application with Firebase</h1>
-      <input value={input} type="text" onChange={event => setInput(event.target.value)} />
-      <button onClick={addTodo}>Add Todo</button>
+      <form>
+        <input value={input} type="text" onChange={event => setInput(event.target.value)} />
+        <button onClick={addTodo} type="submit">Add Todo</button>
+      </form>
 
       <ul>
         {todos.map(todo => (
