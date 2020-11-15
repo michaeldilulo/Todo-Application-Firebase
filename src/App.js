@@ -9,13 +9,20 @@ import './App.css';
 
 function App() {
   const [todos, setTodos] = useState(['Take Maya for a Walk', 'Take the trash out'])
+  // only purpose is to take care of the input, with (') value will always be set to empty string
+  const [input, setInput] = useState('')
+
+  const addTodo = (event) => {
+    // spread operator spreads out array of todos, input is the new todo
+    setTodos([...todos, input])
+  }
 
 
   return (
     <div className="App">
       <h1>Todo Application with Firebase</h1>
-      <input type="text" />
-      <button>Add Todo</button>
+      <input value={input} type="text" onChange={event => setInput(event.target.value)} />
+      <button onClick={addTodo}>Add Todo</button>
 
       <ul>
         {todos.map(todo => (
