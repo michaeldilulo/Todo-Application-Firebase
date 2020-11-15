@@ -1,12 +1,15 @@
 // rfce = React Functional Component w/ export
 
+import { List, ListItem, ListItemText } from '@material-ui/core'
 import React from 'react'
 
 function Todo(props) {
     return (
-        <div>
-            <li>{props.name}</li>
-        </div>
+        <List>
+            <ListItem>
+                <ListItemText primary="Todo" secondary={props.name}></ListItemText>
+            </ListItem>
+        </List>
     )
 }
 
