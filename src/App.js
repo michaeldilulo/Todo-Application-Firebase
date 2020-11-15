@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     // This code fires when app.js loads and never again. Attaches the listener one time
     // setTodos, take a snapshot (like a camera), the docs, than map through the doc, and return me the name of each todo (key)
+    // This is doing all the listening, whenever it changes, fire this line of code below
     db.collection('todos').onSnapshot(snapshot => {
       setTodos(snapshot.docs.map(doc => doc.data().name))
     })
@@ -28,6 +29,13 @@ function App() {
   const addTodo = (event) => {
     // preventDefault() will stop the page from being refreshed
     event.preventDefault()
+
+    // Adding todo using firebase
+
+    db.collection('todos').add({
+      name: input
+    })
+
     // spread operator spreads out array of todos, input is the new todo
     setTodos([...todos, input])
     setInput('')
