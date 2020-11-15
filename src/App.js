@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Todo from './Todo';
 import db from "./firebase"
+import firebase from "firebase"
 
 // PROPS - Properties
 // STATE - Short term memory (will clear when page is refreshed)
@@ -21,7 +22,8 @@ function App() {
     // This code fires when app.js loads and never again. Attaches the listener one time
     // setTodos, take a snapshot (like a camera), the docs, than map through the doc, and return me the name of each todo (key)
     // This is doing all the listening, whenever it changes, fire this line of code below
-    db.collection('todos').onSnapshot(snapshot => {
+    // Sorts the todos in descending order
+    db.collection('todos').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       setTodos(snapshot.docs.map(doc => doc.data().name))
     })
   }, [])
@@ -30,10 +32,12 @@ function App() {
     // preventDefault() will stop the page from being refreshed
     event.preventDefault()
 
-    // Adding todo using firebase
+    // Adding todo using firebase and timestamp for server timestamp
 
     db.collection('todos').add({
-      name: input
+      name: input,
+      // where data is stored, timestamp is stored
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
 
     // spread operator spreads out array of todos, input is the new todo
