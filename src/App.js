@@ -5,9 +5,10 @@ import './App.css';
 // STATE - Short term memory (will clear when page is refreshed)
 // Can run dynamic JS with JSX (Javascript, X is hybrid with HTML)
 // const [todos, setTodos] - const set up variable, list of todos (array), when we use useState hook, we need something to call that will allow us to change the variable (setTodos)
+// When we want to change todos, we need to use setTodos
 
 function App() {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(['Take Maya for a Walk', 'Take the trash out'])
 
 
   return (
@@ -17,8 +18,9 @@ function App() {
       <button>Add Todo</button>
 
       <ul>
-        <li>Take Maya for a Walk</li>
-        <li>Take the trash out</li>
+        {todos.map(todo => (
+          <li>{todo}</li>
+        ))}
       </ul>
     </div>
   );
