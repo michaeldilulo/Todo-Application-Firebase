@@ -1,3 +1,5 @@
+import { FormControl, Input, InputLabel } from '@material-ui/core';
+import Button from '@material-ui/core/Button/Button';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -25,8 +27,11 @@ function App() {
     <div className="App">
       <h1>Todo Application with Firebase</h1>
       <form>
-        <input value={input} type="text" onChange={event => setInput(event.target.value)} />
-        <button onClick={addTodo} type="submit">Add Todo</button>
+        <FormControl>
+          <InputLabel>Add New Todo:</InputLabel>
+          <Input value={input} type="text" onChange={event => setInput(event.target.value)} />
+        </FormControl>
+        <Button disabled={!input} variant="contained" color="primary" onClick={addTodo} type="submit">Add Todo</Button>
       </form>
 
       <ul>
