@@ -2,6 +2,7 @@ import { FormControl, Input, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button/Button';
 import React, { useState } from 'react';
 import './App.css';
+import Todo from './Todo';
 
 // PROPS - Properties
 // STATE - Short term memory (will clear when page is refreshed)
@@ -36,7 +37,7 @@ function App() {
 
       <ul>
         {todos.map(todo => (
-          <li>{todo}</li>
+          <Todo name={todo} />
         ))}
       </ul>
     </div>
