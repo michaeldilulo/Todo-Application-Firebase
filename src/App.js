@@ -1,8 +1,9 @@
 import { FormControl, Input, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Todo from './Todo';
+import db from "./firebase"
 
 // PROPS - Properties
 // STATE - Short term memory (will clear when page is refreshed)
@@ -11,9 +12,18 @@ import Todo from './Todo';
 // When we want to change todos, we need to use setTodos
 
 function App() {
-  const [todos, setTodos] = useState(['Take Maya for a Walk', 'Take the trash out'])
+  const [todos, setTodos] = useState([])
   // only purpose is to take care of the input, with (') value will always be set to empty string
   const [input, setInput] = useState('')
+
+  // When the app loads, we need to listen to database and fetch new todos as they get added / removed
+  useEffect(() => {
+    // This code fires when app.js loads and never again. Attaches the listener one time
+    // setTodos, take a snapshot (like a camera), the docs, than map through the doc, and return me the name of each todo (key)
+    db.collection('todos').onSnapshot(snapshot => {
+      setTodos(snapshot.docs.map(doc => doc.data().name))
+    })
+  }, [])
 
   const addTodo = (event) => {
     // preventDefault() will stop the page from being refreshed
